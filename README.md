@@ -1,5 +1,5 @@
-# s4yt_fe_2024
-Welcome to the special event/game front-end repository for Building-u, called Dollars for Your Thoughts ($4YT). The project is for the interns from Building-u.
+# s4yt_fe
+Welcome to the special event/game front-end repository for Building-u, called Dollars for Your Thoughts ($4YT), 2025. The project is for the interns from Building-u.
 
 The point system is a focal point, players can earn `Dubl-u-nes` and spend them on raffle items provided by the raffle partners, and even complete a business challenge for real cash. For a brief explanation, the game runs through `periods`, starting with `pre_game`, where players answer multiple-choice questions from business partners, they open chests and answer the questions for dubl-u-nes. Once everyone is done earning dubl-u-nes, next is the `game_start` period. Business challenges are open, and the interns would start placing dubl-u-nes on raffle items. After that, businesses review the challenges, pick winners, and the raffle drawing commences for the raffle item winners. 
 
@@ -26,7 +26,7 @@ This is a `TypeScript` `React` application built using `Vite`. The app also uses
 - Run "npm install" to install all dependencies or, more favorably, "npm ci".
 - "npm run dev" to run the project in development mode.
 
-## Folder Structure
+## Directory Structure
 To maintain good development practices and consistency across files/directories, we recommend using the same guidelines and structure as follows if you're building upon the code. In this project, we used a `reusable architecture` for all directories, so create a new `component` only if it is used in more than one file, the same goes for `utils`, `constants`, and the other directories. I am only going to be explaining things that I think are important to know and clarify aspects that may not be self-explanatory:
 
 ### components
