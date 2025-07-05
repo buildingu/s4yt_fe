@@ -1,55 +1,66 @@
 # s4yt_fe_2024
-Welcome to the special event/'game' front-end repository for Building-u, called Dollars for Your Thoughts ($4YT). The project is for the interns from Building-u. The point system is a focal point, players can earn `Dubl-u-nes` and spend them on the raffle items provided by the raffle partners and even complete a business challenge for real cash. They can also, view sponsors and complete the sponsor quiz for additional coins. The winners of the businesses challenges and raffle items are also shown at the end of the event on the Event Results page. The application is also controlled by roles of the user and the timestamps for each period of the event, which are shown below.
+Welcome to the special event/game front-end repository for Building-u, called Dollars for Your Thoughts ($4YT). The project is for the interns from Building-u.
 
-## Please Note ⚠
-Due to time constraints, our back-end developer leaving, and other commitments, we had to **improvise** in certain areas. This is why you'll see `Firebase` being used for the business's meet-ups and challenges. Hardcoded data is also around for some data, which is located at `src/constants/temporaryDb`. These were last-minute solutions that we had no other choice but to do.
+The point system is a focal point, players can earn `Dubl-u-nes` and spend them on raffle items provided by the raffle partners, and even complete a business challenge for real cash. For a brief explanation, the game runs through `periods`, starting with `pre_game`, where players answer multiple-choice questions from business partners, they open chests and answer the questions for dubl-u-nes. Once everyone is done earning dubl-u-nes, next is the `game_start` period. Business challenges are open, and the interns would start placing dubl-u-nes on raffle items. After that, businesses review the challenges, pick winners, and the raffle drawing commences for the raffle item winners. 
+
+The periods are controlled by timestamps, explained more below.
 
 ## Timestamps
 The state for the timestamps is located in `src/redux/reducers/gameConfig.ts`.
 ### Periods
-- `register_start:` **restrictedAccess** is set and they are only allowed to the profile.
-- `game_start` the 'game' has started everyone is **allowed everywhere** except for the **Event Results page**.
-- `review_start` **challenge submissions** and the **raffle** are now in review and the **game is closed**, but only for the **player role**.
-- `review_end` winners are now shown and everyone can only access the **Event Results page** with the **Proile page** as an exception.
-- `game_end` end of the 'game' and the **Game Closed page** is always shown after login.
+When all timestamps are before, so the game hasn't started, **restrictedAccess** is set and they are only allowed to the profile.
+
+Note that throughout these periods, the **profile page** is always opened, except for `game_end`, of course.
+- `pre_game`: Everyone begins to learn more about the businesses by completing multiple-choice questions and earn dubl-u-nes.
+- `game_start`: Business challenge questions are opened, and the **Learn and Earn** and **Event Results** pages are closed.
+- `review_start`: **Challenge submissions** and the **raffle** are now in review. The **game is closed**, but only for the **player role**.
+- `review_end`: Winners are now shown, and everyone can only access the **Event Results page** and the game remains closed.
+- `game_end`: End of the 'game' and the **Game Closed page** is always shown after login.
 
 ## Tech Used
-This is a `TypeScript` `React` application built using `Craco`. The app also uses `Redux` for efficient state management, and utilizes `CSS modules` for styling.
+This is a `TypeScript` `React` application built using `Vite`. The app also uses `Redux` for efficient state management, and utilizes `CSS modules` for styling.
 
 ## Getting Started
-- Nodejs version 20 or greater.
-- Choose either NPM or Yarn as your package manager.
-- Run "npm install" or "yarn install" to install all dependencies and that's it. 
+- Nodejs version 22 or greater.
+- NPM version 10 or greater.
+- Run "npm install" to install all dependencies or, more favorably, "npm ci".
+- "npm run dev" to run the project in development mode.
 
 ## Folder Structure
-To maintain good development practices and consistency across files/folders, we recommend using the same guidelines and structure as follows if you're building upon the code. In this project we used a `reusable architecture` for all folders, so create a new `component` only if it is used in more than one file, the same goes for `utils`, `constants`, and the other folders. I am only going to be explaining things that I think are important to know and clarify aspects that may not be self-explanatory:
+To maintain good development practices and consistency across files/directories, we recommend using the same guidelines and structure as follows if you're building upon the code. In this project, we used a `reusable architecture` for all directories, so create a new `component` only if it is used in more than one file, the same goes for `utils`, `constants`, and the other directories. I am only going to be explaining things that I think are important to know and clarify aspects that may not be self-explanatory:
 
 ### components
-- Each component has a folder as the name of the component and must include `index.tsx` and `styles.module.css` files.
+- Each component has a directory as the name of the component and must include `index.tsx` and `styles.module.css` files.
 - We use `Layout` and `Content` components, kind of like Nextjs, and they should be used in every `view`.
-- The `gate` component is the `gateway` component, which is wrapped around every route.
+- The `Redirects` component is the 'gateway' component, which is wrapped around every route.
 - `src/components/forms/user` is the user form meaning where the user registers and edits their profile, it serves as both.
 
 ### redux
-- The `gameConfig` is where all game-specific (it's an event, not a game) 'configurations' are, e.g. the `timestamps` for the countdown, and each `period` of the game as explained above in the Timestamps section.
-- The `coinTracker` is for mulipating the coins (dubl-u-nes).
-- The `user` for updating the local state of the user and the user session.
-- You might notice page (view) specific reducers like `getBusinesses.ts`, `raffle.ts`, etc.
+- The `gameConfig` reducer is where all game-specific 'configurations' are, e.g. the `timestamps` for the countdown, and each `period` of the game as explained above in the Timestamps section.
+- The `game` reducer is for a number of things; mulipating the coins (dubl-u-nes), learn and earn chests, raffle, etc.
+- The `user` reducer is for updating the state of the user and the user session.
+  - Notable reducers are only listed, there is more.
 - The `actions` handles the `API calls`, essentially every action is a `redux-thunk`.
 <br />
 
 ```
 /
 ├── .env
-├── craco.config.cjs
+├── vite.config.ts
 ├── package.json
+├── postcss.config.js
 ├── tsconfig.json
 ├── ...
 ├── node_modules/
 |   └── ...
 ├── public/
-│   ├── favicon.ico
-|   ├── index.html
+│   ├── fonts/
+|   |   └── ...
+│   ├── images/
+|   |   └── ...
+│   ├── favicon-32x32.png
+|   ├── favicon.ico
+|   ├── site.webmanifest
 |   └── ...
 └── src/
     ├── index.jsx
@@ -57,6 +68,9 @@ To maintain good development practices and consistency across files/folders, we 
     ├── store.js
     ├── ...
     ├── components/
+    |   ├── carousel/
+    |   |   ├── index.tsx
+    |   |   └── styles.module.css
     |   ├── forms/
     |   |   ├── controls/
     |   |   |   ├── Input.tsx
@@ -68,8 +82,6 @@ To maintain good development practices and consistency across files/folders, we 
     |   |   |   ├── index.tsx
     |   |   |   └── styles.module.css
     |   |   └── ...
-    |   ├── gate/
-    |   |   └── index.tsx
     |   ├── image/
     |   |   ├── index.tsx
     |   |   └── styles.module.css
@@ -82,8 +94,11 @@ To maintain good development practices and consistency across files/folders, we 
     |   |   ├── ModalTemplate.tsx
     |   |   ├── areYouSure/
     |   |   |   └── ...
-    |   |   ├── challengeModal/
-    |   |   |   └── ...
+    |   |   ├── challenge/
+    |   |   |   ├── details/
+    |   |   |   |   └── ...
+    |   |   |   └── instructions/
+    |   |   |       └── ...
     |   |   └── ...
     |   ├── notification/
     |   |   ├── index.tsx
@@ -102,7 +117,7 @@ To maintain good development practices and consistency across files/folders, we 
     |   |   ├── layout/
     |   |   |   ├── index.tsx
     |   |   |   └── styles.module.css
-    |   |   ├── status(footer)/
+    |   |   └── status(footer)/
     |   |       ├── index.tsx
     |   |       └── styles.module.css
     |   └── ...
@@ -110,25 +125,24 @@ To maintain good development practices and consistency across files/folders, we 
     ├── constants/ 
     |   ├── emailRegex.js
     |   ├── treasureMapNavContent.js
-    |   ├── uuidRegex.js
-    |   └── temporaryDb/ --- This is the temporary hardcoded data that was only used for this year as explained above.
-    |       ├── businesses.js
-    |       └── ...
+    |   └── uuidRegex.js
     |    
     ├── hooks/
-    |   ├── useContinueCountdown.ts --- To keep the countdown moving, which is displayed in the status component and gameEnd
-    |   └── usePagination.ts            files.
+    |   ├── useContinueCountdown.ts --- To keep the countdown moving, which is displayed in the status component and gameEnd files.
+    |   └── useRefreshReduxPersister.ts
     |
     ├── redux/
     |   ├── actions/
-    |   |   ├── coinTracker.js
+    |   |   ├── businesses.js
+    |   |   ├── game.js
     |   |   ├── gameConfig.js
     |   |   ├── notifications.js
     |   |   ├── user.js
     |   |   ├── index.js
     |   |   └── ...
     |   └── reducers/
-    |       ├── coinTracker.ts
+    |       ├── businesses.ts
+    |       ├── game.ts
     |       ├── gameConfig.ts
     |       ├── notifications.ts
     |       ├── user.ts
@@ -136,27 +150,25 @@ To maintain good development practices and consistency across files/folders, we 
     |       └── ...
     |
     ├── routes/
-    |   └── index.jsx --- holds data about the routes and the RoutesProvider which is used in the base index.tsx file.
+    |   ├── disableOn.ts
+    |   ├── Redirects.jsx
+    |   └── index.jsx --- holds data about the routes and the RoutesProvider, which is used in the base index.tsx file.
     |
     ├── services/
     |   ├── errorHandler.js
-    |   ├── initializeFirebase.ts --- Temporary for this year; explained above.
-    |   ├── socketProvider.ts
+    |   ├── ResourceLoader.tsx --- loads Socket.io connection, etc.
+    |   ├── socket.ts
+    |   ├── SocketBackgroundListeners.tsx
     |   └── index.js
-    |
-    ├── static(assets)/
-    |   ├── bg.jpg
-    |   └── ...
     |    
-    ├── typings/ --- All types are done in their respective files unless they need to be used elsewhere then they are put 
-    |   ├── declarations.d.ts      here.
+    ├── typings/ --- All types are done in their respective files unless they need to be used elsewhere then they are put here.
     |   ├── NotificationValues.ts
     |   └──  UserCredentials.ts
     |
     ├── utils/
     |   ├── copyToClipboard.ts
     |   ├── delay.ts
-    |   ├── History.ts --- Use this for useNavigate.
+    |   ├── History.ts --- Use this instead of useNavigate.
     |   └── forms/
     |       ├── checkMatchingPasswords.ts
     |       ├── checkValidEmail.ts
@@ -164,8 +176,8 @@ To maintain good development practices and consistency across files/folders, we 
     |       ├── updateField.ts
     |       └── ...
     |
-    ├── views(pages)/ --- the views are separated by game (main pages), user (auth pages), and errors (universal) folders
-    |   ├── errors/       for clarity.
+    ├── views(pages)/ --- the views are separated by game (main pages), user (auth pages), and errors (universal) directories for clarity.
+    |   ├── errors/
     |   |   ├── index.tsx
     |   |   ├── Error404.tsx
     |   |   ├── Error500.tsx
@@ -184,14 +196,14 @@ To maintain good development practices and consistency across files/folders, we 
     |   |   ├── home/
     |   |   |   ├── index.tsx
     |   |   |   └── styles.module.css
+    |   |   ├── learnAndEarn/
+    |   |   |   ├── index.tsx
+    |   |   |   ├── Questions.tsx
+    |   |   |   └── styles.module.css
     |   |   ├── raffle/
     |   |   |   ├── index.tsx
     |   |   |   └── styles.module.css
-    |   |   ├── results/
-    |   |   |   ├── index.tsx
-    |   |   |   ├── styles.module.css
-    |   |   |   └── ...
-    |   |   └── sponsors/
+    |   |   └── results/
     |   |       ├── index.tsx
     |   |       ├── styles.module.css
     |   |       └── ...
@@ -203,17 +215,15 @@ To maintain good development practices and consistency across files/folders, we 
     |       |           └── ...
     |       ├── profile/
     |       |   ├── index.tsx
-    |       |   ├── coins.tsx
-    |       |   ├── referrals.tsx
+    |       |   ├── Coins.tsx
+    |       |   ├── Referrals.tsx
     |       |   └── styles.module.css
     |       |   └── ...
     |       ├── register/
-    |       |   ├── index.tsx
-    |       |   └── styles.module.css
+    |       |   └── index.tsx
     |       |       └── verifyEmail/
     |       |           └── ...
     |       └── resetPassword/
-    |           ├── index.tsx
-    |           └── styles.module.css
+    |           └── index.tsx
     └── ...
 ```
