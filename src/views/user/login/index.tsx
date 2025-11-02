@@ -93,7 +93,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
 
           <div role="presentation">
             <label htmlFor="password" aria-label="Password">
-              Pass
+              Password
             </label>
             <Input
               id="password"
@@ -110,7 +110,7 @@ const Login: React.FC<Props> = ({ loginPlayer }) => {
 
           <div role="presentation">
             <Link to="/login/forgot" className={`${s.forgot} fade move`}>
-              Forgot pass?
+              Forgot Password?
             </Link>
           </div>
 
