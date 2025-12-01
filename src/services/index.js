@@ -6,7 +6,7 @@ const DEFAULT_HEADERS = Object.freeze({
   "Content-Type": "application/json"
 });
 
-const target = import.meta.env.DEV ? "http://localhost:4000/api/v2" : "/api/v2";
+const target = "/api/v2";
 
 const sendRequest = async (method, url, params, body) => {
   const apiUrl = params
