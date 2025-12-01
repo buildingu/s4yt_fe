@@ -5,7 +5,6 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   return {
-    base: env.VITE_CLIENT_BASE_URL,
     server: {
       port: 3000,
       proxy: {
