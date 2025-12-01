@@ -6,7 +6,7 @@ const DEFAULT_HEADERS = Object.freeze({
   "Content-Type": "application/json"
 });
 
-const target = "/api/v2";
+const target = `${import.meta.env.VITE_API_BASE_URL}/api/v2`;
 
 const sendRequest = async (method, url, params, body) => {
   const apiUrl = params
