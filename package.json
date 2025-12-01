@@ -16,6 +16,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
     "build": "vite build",
     "clean": "rm -rf node_modules"
   },
