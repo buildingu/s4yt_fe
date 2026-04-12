@@ -1,0 +1,92 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-block: 1.5rem;
+}
+
+.container :global(.privacy) {
+  position: absolute;
+  left: 0;
+  bottom: -21px;
+}
+
+@media screen and (max-width: 914px) {
+  .container {
+    padding-inline: 0.5rem;
+  }
+  .container :global(.privacy) {
+    left: 0.5rem;
+  }
+}
+
+.container > div {
+  display: flex;
+}
+@media screen and (max-width: 635px) {
+  .container {
+    justify-content: center;
+  }
+
+  .container :global(.privacy) {
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+@media screen and (max-width: 362px) {
+  .container {
+    transform: scale(0.9);
+  }
+}
+
+.container div button,
+.container div a {
+  width: 60px;
+  height: 60px;
+  border: 0;
+  cursor: pointer;
+}
+.container div button {
+  margin-right: 1rem;
+}
+@media screen and (max-width: 390px) {
+  .container div p {
+    margin-right: 1rem;
+  }
+
+  .container div button {
+    margin-right: 5px;
+  }
+}
+
+.container div .questions {
+  background: url("/images/btn_question_normal.webp") no-repeat center center/contain;
+}
+
+.container div .checkout {
+  background: url("/images/btn_checkout_normal.webp") no-repeat center
+    center/contain;
+}
+.container div .checkout:hover {
+  background: url("/images/btn_checkout_hover.webp") no-repeat center
+    center/contain;
+}
+.container div .checkout:active {
+  background: url("/images/btn_checkout_pressed.webp") no-repeat center
+    center/contain;
+}
+
+.container .timer {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  color: var(--pbrown);
+}
+
+.container .timer time {
+  font-size: 60px;
+  margin-inline: 0.5rem;
+}

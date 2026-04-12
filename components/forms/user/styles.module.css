@@ -1,0 +1,224 @@
+/* <======================================/ Shared \======================================> */
+.detail {
+  font-size: 20px;
+  color: var(--pbrown);
+  text-align: right;
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
+}
+.required {
+  font-size: 18px;
+  color: var(--form-red);
+}
+.form .required {
+  position: relative;
+  bottom: 6px;
+  margin-left: 1.5px;
+}
+
+.form {
+  --_labelWidth: 88.1167px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.form div {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.form > span {
+  display: flex;
+}
+.form > span > div {
+  width: 50%;
+}
+.form > span > div:first-child {
+  margin-right: 1rem;
+}
+.form > span:first-of-type div:last-child label {
+  white-space: nowrap;
+}
+
+.form div label {
+  position: relative;
+  top: 4px;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.form div:first-child label,
+.form > div label {
+  min-width: var(--_labelWidth);
+}
+.form span:nth-of-type(3) div:last-child label {
+  margin-right: calc(0.5rem + 0.9ch);
+}
+
+.form div input,
+.form div select {
+  width: 100%;
+  line-height: 2;
+}
+
+.form div :global(.spinner) {
+  position: absolute;
+  top: 10px;
+}
+.form span:nth-of-type(3) div :global(.spinner) {
+  right: 29px;
+}
+
+.form div small {
+  position: absolute;
+  bottom: -6px;
+}
+.form div small.notFoundMsg {
+  bottom: -19px;
+  font-family: Arial;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--black);
+}
+.form span:nth-of-type(3) > div small.notFoundMsg {
+  left: 70px;
+}
+.form div input[aria-invalid="true"] + small,
+.form {
+  left: 0;
+}
+.form > div:nth-of-type(2) input[aria-invalid="true"],
+.form span:first-of-type > div input[aria-invalid="true"],
+.form span:first-of-type > div input[matching-passwords="false"] {
+  margin-bottom: 22px;
+}
+
+/* <======================================/ Register \======================================> */
+.form[id="registerForm"] > div:last-of-type {
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap-reverse;
+  row-gap: 1.5rem;
+}
+
+.form[id="registerForm"] span:nth-of-type(2) div:last-child label {
+  margin-right: calc(0.5rem + 0.5ch);
+}
+.form[id="registerForm"] > div:nth-of-type(3) input {
+  max-width: 264.883px;
+}
+@media screen and (max-width: 644px) {
+  .form[id="registerForm"] > div:nth-of-type(3) input {
+    max-width: 254.883px;
+  }
+}
+
+.form[id="registerForm"] div a {
+  color: var(--pbrown);
+  font-size: 18px;
+  margin-right: 1rem;
+}
+
+@media screen and (min-width: 626px) {
+  .form[id="registerForm"] span:nth-of-type(3) div small.notFoundMsg {
+    bottom: -32px;
+  }
+}
+@media screen and (max-width: 437px) {
+  .form[id="registerForm"] span:nth-of-type(3) div small.notFoundMsg {
+    bottom: -32px;
+  }
+}
+
+@media screen and (max-width: 625px) {
+  .form[id="registerForm"] div {
+    flex-wrap: wrap;
+  }
+  .form[id="registerForm"] div label {
+    min-width: unset !important;
+    margin-right: unset;
+    top: unset;
+  }
+  .form[id="registerForm"] > div:nth-of-type(3) input {
+    max-width: 100%;
+  }
+
+  .form[id="registerForm"] span {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .form[id="registerForm"] > span > div {
+    width: 100%;
+  }
+  .form[id="registerForm"] span > div:first-child {
+    margin-right: 0;
+  }
+
+  .form[id="registerForm"] div :global(.spinner) {
+    top: 39px;
+  }
+
+  .form[id="registerForm"] div input ~ small,
+  .form[id="registerForm"] div select ~ small,
+  .form[id="registerForm"] div small.notFoundMsg {
+    left: 0 !important;
+  }
+}
+
+@media screen and (max-width: 318px) {
+  .form[id="registerForm"] > div:last-of-type {
+    justify-content: flex-end;
+  }
+}
+@media screen and (max-width: 300px) {
+  .form[id="registerForm"] > div:last-of-type a {
+    margin-right: 0;
+  }
+}
+
+/* <======================================/ Profile \======================================> */
+.form[id="userForm"] span:nth-of-type(2) div:last-child label {
+  margin-right: calc(0.5rem + 1.3ch);
+}
+
+.form[id="userForm"] > div:nth-of-type(3) input {
+  max-width: 42.1%;
+}
+
+.form[id="userForm"] div.notFoundMsg {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 663px) {
+  .form[id="userForm"] div:not(.form[id="userForm"] > div:last-of-type) {
+    flex-direction: column;
+  }
+  .form[id="userForm"] > div:nth-of-type(3) input {
+    max-width: 48.85%;
+  }
+
+  .form[id="userForm"] div label {
+    top: 0;
+    margin: 0;
+  }
+
+  .form[id="userForm"] div :global(.spinner) {
+    top: 39px;
+  }
+}
+
+@media screen and (min-width: 664px) {
+  .form[id="userForm"] div :global(.updateBtn) {
+    margin-left: calc(var(--_labelWidth) + 0.5rem);
+  }
+}
+
+@media screen and (min-width: 952px) and (max-width: 1003px) {
+  .form[id="userForm"] span:nth-of-type(3) div small.notFoundMsg {
+    bottom: -32px;
+  }
+}

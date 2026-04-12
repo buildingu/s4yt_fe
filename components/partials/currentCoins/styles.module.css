@@ -1,0 +1,49 @@
+footer .coins {
+  display: flex;
+  margin-right: 2.5rem;
+}
+header .coins {
+  position: relative;
+  bottom: 2px;
+  display: none;
+}
+
+footer .coins img {
+  position: relative;
+  bottom: 0.5rem;
+  max-width: 50px;
+  margin-right: 4px;
+}
+header .coins img {
+  width: 64px;
+  margin-right: 4px;
+}
+
+.coins p {
+  color: #895734;
+  line-height: 0.7;
+}
+footer .coins p {
+  font-size: 16px;
+}
+
+.coins p span {
+  line-height: 0.9;
+}
+footer .coins p span {
+  font-size: 48px;
+}
+
+@media screen and (max-width: 710px) {
+  header .coins.headerFull {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  header .coins.headerFull p {
+    font-size: 24px;
+  }
+  header .coins.headerFull p span {
+    font-size: 56px;
+  }
+}
