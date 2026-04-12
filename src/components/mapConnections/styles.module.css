@@ -1,0 +1,53 @@
+.dottedLine {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 3;
+  transition: filter 0.5s ease;
+}
+
+.completed {
+  filter: brightness(0.55) sepia(1) hue-rotate(80deg) saturate(5) brightness(1.4);
+}
+
+/* DL_01 */
+.dl01 {
+  left: 70px;
+  top: 178px;
+  width: 70px;
+}
+
+/* DL_02 */
+.dl02 {
+  left: 267px;
+  top: 220px;
+  width: 120px;
+}
+
+/* DL_03 */
+.dl03 {
+  left: 340px;
+  top: 45px;
+  width: 115px;
+}
+
+/* DL_04 */
+.dl04 {
+  left: 550px;
+  top: 40px;
+  width: 80px;
+}
+
+/* DL_05 */
+.dl05 {
+  left: 510px;
+  top: 235px;
+  width: 35px;
+}
+
+/* DL_06 */
+.dl06 {
+  left: 660px;
+  top: 120px;
+  width: 90px;
+}
