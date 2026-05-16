@@ -6,6 +6,7 @@ import game from "./game";
 import gameConfig from "./gameConfig";
 import businesses from "./businesses";
 import winners from "./winners";
+import userProgress from "./userProgress";
 
 export default combineReducers({
   user,
@@ -14,5 +15,6 @@ export default combineReducers({
   game,
   gameConfig,
   businesses,
-  winners
+  winners,
+  userProgress,
 });

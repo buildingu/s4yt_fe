@@ -1,10 +1,12 @@
 import type { BusinessReduxState } from "@reducers/businesses";
 
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { getBusinesses } from "@actions/businesses";
+import { completePage } from "@actions/userProgress";
 
 import history from "@utils/History";
 
@@ -13,9 +15,9 @@ import Header from "@components/partials/header";
 import Content from "@components/partials/content";
 import Status from "@components/partials/status";
 import Image from "@components/Image";
+import Spinner from "@root/components/loaders/spinner";
 
 import s from "./styles.module.css";
-import Spinner from "@root/components/loaders/spinner";
 
 interface Props {
   businesses: BusinessReduxState["businesses"];
@@ -28,6 +30,7 @@ const Businesses: React.FC<Props> = ({
   getBusinessesTimestamp,
   getBusinesses
 }) => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   useLayoutEffect(() => {
@@ -38,6 +41,10 @@ const Businesses: React.FC<Props> = ({
       setLoading(true);
       getBusinesses().finally(() => setLoading(false));
     }
+  }, []);
+
+  useEffect(() => {
+    dispatch(completePage("partners"));
   }, []);
 
   return (
@@ -60,10 +67,7 @@ const Businesses: React.FC<Props> = ({
                   className={s.businessContainer}
                 >
                   {business.challenge_question.answers_count > 0 && (
-                    <div
-                      aria-label="Answers Submitted"
-                      className={s.answersCount}
-                    >
+                    <div aria-label="Answers Submitted" className={s.answersCount}>
                       {business.challenge_question.answers_count}
                     </div>
                   )}
@@ -84,7 +88,6 @@ const Businesses: React.FC<Props> = ({
             />
           )}
         </div>
-
         <button
           aria-label="Previous Page"
           className="backBtn fade move"
