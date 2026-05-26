@@ -4,10 +4,9 @@ import type { GameConfigReduxState } from "@reducers/gameConfig";
 
 import s from "./styles.module.css";
 
-const disabled = false;
 interface Props {
   img: { src: string; alt: string };
-  to: string;
+  to?: string; 
   disableOn?: readonly string[];
   position?: { x: number; y: number };
   gameConfig: GameConfigReduxState;
@@ -15,20 +14,7 @@ interface Props {
 }
 
 const MapNavigation: React.FC<Props> = ({ img, to, disableOn, position, gameConfig, size = 130 }) => {
-  const disabled =
-    !to ||
-    disableOn?.includes(
-      gameConfig.preGame
-        ? "preGame"
-        : gameConfig.gameStart
-        ? "gameStart"
-        : gameConfig.reviewStart
-        ? "reviewStart"
-        : gameConfig.winnersAnnounced
-        ? "winnersAnnounced"
-        : ""
-    );
-
+  
   const cardStyle: React.CSSProperties = {
     position: "absolute",
     left: position?.x ?? 0,
@@ -36,6 +22,25 @@ const MapNavigation: React.FC<Props> = ({ img, to, disableOn, position, gameConf
     width: size,
     height: size,
   };
+
+if (!to) {
+  return (
+    <div style={cardStyle} className={`${s.card} ${s.noLink}`}>
+      <img src={img.src} alt={img.alt} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+    </div>
+  );
+}
+  const disabled = disableOn?.includes(
+    gameConfig.preGame
+      ? "preGame"
+      : gameConfig.gameStart
+      ? "gameStart"
+      : gameConfig.reviewStart
+      ? "reviewStart"
+      : gameConfig.winnersAnnounced
+      ? "winnersAnnounced"
+      : ""
+  );
 
   return (
     <Link

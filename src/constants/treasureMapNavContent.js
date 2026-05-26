@@ -22,11 +22,9 @@ export default [
     {
     id: "free_dub",
     img: { src: freeDub, alt: "Free Dub" },
-    to: "/dublness",
     position: { x: 140, y: 210 },
     size: 140,
     connectsTo: [""],
-    disableOn: routeDisableOn["/dublness"]
   },
   {
     id: "raffle",
@@ -64,27 +62,23 @@ export default [
   {
     id: "refer_friends",
     img: { src: referFriendsGetMore, alt: "Refer Friends Get More" },
-    to: "/refer",
+    to: "/profile",
     position: { x: 280, y: 265 },
     connectsTo: [],
-    disableOn: routeDisableOn["/refer"]
+    disableOn: routeDisableOn["/profile"]
   },
   {
     id: "welcome_aboard",
     img: { src: welcomeAboard, alt: "Welcome Aboard" },
-    to: "/welcome",
     position: { x: -20, y: -20 },
     connectsTo: [],
     size: 190,
-    disableOn: routeDisableOn["/welcome"]
   },
   {
     id: "win_3_dub",
     img: { src: win3Dub, alt: "Win 3 Dub" },
-    to: "/prizes",
     position: { x: 150, y: -40 },
     connectsTo: [],
     size: 135,
-    disableOn: routeDisableOn["/prizes"]
   }
 ];

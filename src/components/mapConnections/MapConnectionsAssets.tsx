@@ -11,16 +11,20 @@ import DL_06 from "../../assets/images/NewMap/DL_06.png";
 
 import s from "./styles.module.css";
 
-const MapConnectionsAssets: React.FC<{ gameConfig: GameConfigReduxState }> = () => {
-  const ALWAYS_GREEN = new Set([0, 1]);
+const MapConnectionsAssets: React.FC<{ gameConfig: GameConfigReduxState }> = ({ gameConfig }) => {
+  const { preGame, gameStart, reviewStart, winnersAnnounced } = gameConfig;
+
+  const isAtLeastPreGame   = preGame || gameStart || reviewStart || winnersAnnounced;
+  const isAtLeastGameStart = gameStart || reviewStart || winnersAnnounced;
+  const isAtLeastReview    = reviewStart || winnersAnnounced;
 
   const lines = [
-    { src: DL_01, className: s.dl01 },
-    { src: DL_02, className: s.dl02 },
-    { src: DL_03, className: s.dl03 },
-    { src: DL_04, className: s.dl04 },
-    { src: DL_05, className: s.dl05 },
-    { src: DL_06, className: s.dl06 },
+    { src: DL_01, className: s.dl01, completed: true },                // welcome to free dub:     always green
+    { src: DL_02, className: s.dl02, completed: true },                // free dub to refer:       always green
+    { src: DL_03, className: s.dl03, completed: isAtLeastPreGame },    // profile to play & get:   pre-game+
+    { src: DL_04, className: s.dl04, completed: isAtLeastPreGame },    // play & get to raffle:    pre-game+
+    { src: DL_05, className: s.dl05, completed: isAtLeastGameStart },  // raffle to partners:      game start+
+    { src: DL_06, className: s.dl06, completed: !!winnersAnnounced },    // partners to wrap up:     review+
   ];
 
   return (
@@ -33,7 +37,7 @@ const MapConnectionsAssets: React.FC<{ gameConfig: GameConfigReduxState }> = () 
           className={[
             s.dottedLine,
             line.className,
-            ALWAYS_GREEN.has(i) ? s.completed : "",
+            line.completed ? s.completed : "",
           ].join(" ")}
           draggable={false}
         />
