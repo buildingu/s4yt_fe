@@ -3,11 +3,15 @@
   "version": "2.0.8",
   "private": true,
   "author": "David Bishop",
-  "contributors": ["David Bishop", "Koki Vasileski"],
+  "contributors": [
+    "David Bishop",
+    "Koki Vasileski",
+    "Jonathan Lam"
+  ],
   "description": "This is the special event/'game' front-end for Building-u, which is called Dollars for Your Thoughts ($4YT) 2025.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/buildingu/s4yt_fe_2023"
+    "url": "https://github.com/buildingu/s4yt_fe"
   },
   "engines": {
     "node": ">=22.0.0",
@@ -16,6 +20,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "staging": "serve -s build",
     "build": "vite build",
     "clean": "rm -rf node_modules"
   },
@@ -28,6 +33,7 @@
     "redux": "~4.2.0",
     "redux-persist": "6.0.0",
     "redux-thunk": "2.4.2",
+    "serve": "^14.2.5",
     "socket.io-client": "^4.8.0"
   },
   "devDependencies": {
