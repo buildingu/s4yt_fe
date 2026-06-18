@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-export const socket = io(import.meta.env.VITE_API_BASE_URL, {
+export const socket = io(import.meta.env.DEV ? import.meta.env.VITE_API_BASE_URL : undefined, {
   autoConnect: false,
   reconnection: false,
   transports: ["websocket", "polling"]
