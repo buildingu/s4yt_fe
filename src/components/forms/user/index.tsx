@@ -259,7 +259,7 @@ const UserForm: React.FC<Props> = ({
         >
           <div role="presentation">
             <label aria-label="Password" htmlFor="password">
-              Pass
+              Password
               <span aria-hidden="true" className={s.required}>
                 *
               </span>
@@ -282,7 +282,7 @@ const UserForm: React.FC<Props> = ({
               aria-label="Confirm Password"
               htmlFor="password_confirmation"
             >
-              Confirm Pass
+              Confirm Password
               <span aria-hidden="true" className={s.required}>
                 *
               </span>
