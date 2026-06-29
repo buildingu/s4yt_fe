@@ -44,7 +44,7 @@
 
 /* <======================================/ Profile \======================================> */
 .form[id="updatePasswordForm"] {
-  --_labelWidth: 105.5px;
+  --_labelWidth: 180px;
 
   display: flex;
   flex-direction: column;
@@ -65,5 +65,10 @@
     white-space: nowrap;
     margin-right: 0.5rem;
     min-width: var(--_labelWidth);
+  }
+
+  .form[id="updatePasswordForm"] div input {
+    flex: 1;
+    min-width: 0;
   }
 }

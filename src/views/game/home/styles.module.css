@@ -32,9 +32,12 @@
   margin-bottom: 2.5rem;
 }
 
-.notViewed ul li p {
-  /* font-size: 42px; */
+.notViewed p {
   font-size: 40px;
+}
+
+.notViewed ul li {
+  font-size: 30px;
 }
 
 .notViewed div {
@@ -78,4 +81,91 @@
     gap: 0.5rem 0;
     padding-block: 2rem;
   }
+}
+
+.notViewed p {
+  font-size: 40px;
+  margin-bottom: 1.5rem;
+}
+
+.notViewed p:last-of-type {
+  margin-bottom: 0;
+}
+
+.wrapUpSlide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 410px;
+}
+
+.wrapUpSlide p {
+  margin-bottom: 1.5rem;
+}
+
+.wrapUpSlide p:last-of-type {
+  margin-bottom: 0;
+}
+
+.notViewed div.scrollMarkers {
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.marker {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--pbrown);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.markerActive {
+  background: var(--pbrown);
+}
+
+.okBtn:disabled {
+  opacity: 0.4;
+  filter: grayscale(60%);
+  cursor: not-allowed;
+}
+
+.wrapUpSlide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.wrapUpSlide p {
+  margin-bottom: 1.5rem;
+}
+
+.wrapUpSlide p:last-of-type {
+  margin-bottom: 0;
+}
+
+.wrapUpTitle {
+  font-size: 56px;
+  font-weight: 900;
+}
+
+.wrapUpHighlight {
+  background: #cba26b;
+  color: var(--pbrown);
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.wrapUpWelcome {
+  color: #b5392e;
+  font-size: 44px;
+  font-weight: 900;
 }

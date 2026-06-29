@@ -17,13 +17,76 @@ interface Props {
   addNotification: (notification: { error: boolean; content: string; close?: boolean; duration?: number }) => void;
 }
 
+const instructionSlides: React.ReactNode[] = [
+  // Slide 1: Format
+  <>
+    <p>Visit the Learn and Earn page to get more info about the challenges and win more Dubl-U-nes as you go!</p>
+    <ul>
+      <li>Visit the business island to see the challenges (available from day 3 to 5 / hours 49 to 120 of the $4YT event)</li>
+      <li>Click on the Raffle page to use your Dubl-U-nes</li>
+    </ul>
+  </>,
+  // Slide 2: Welcome to the Game
+  <>
+    <p>Welcome to the Game!</p>
+    <ul>
+      <li>Head to the profile page to see your 3 Dubl-U-nes for registering.</li>
+    </ul>
+    <p>What are Dubl-U-nes?</p>
+    <ul>
+      <li>Our virtual currency to use in our raffle and the Pre-Game!</li>
+      <li>Refer friends to get more Dubl-U-nes!</li>
+      <li>You will get 3 Dubl-U-nes and your friend will get 2 once they register and join the game.</li>
+    </ul>
+  </>,
+  // Slide 3: Pre-Game (Learn & Earn)
+  <>
+    <p>Pre-Game (Learn &amp; Earn)</p>
+    <ul>
+      <li>Opens at 1 AM EDT on April 3rd, 2026, until midnight EDT on April 4th, 2026.</li>
+      <li>Visit the Learn &amp; Earn page to earn Dubl-U-nes before the challenges open.</li>
+      <li>These questions can help you in the Main Challenges, and your answers can be referenced throughout the game.</li>
+      <li>Once the Main Challenges open, you can still revisit and answer questions, but no more earning Dubl-U-nes!</li>
+    </ul>
+  </>,
+  // Slide 4: Main Game (Business Island) + Raffle Time
+  <>
+    <p>Main Game (Business Island)</p>
+    <ul>
+      <li>Opens at midnight EDT on April 4th, 2026, until midnight EDT on April 7th, 2026.</li>
+      <li>Apply what you learned in the Pre-Game and take a stab at a business challenge (submitted anonymously) for the chance to win money!</li>
+    </ul>
+    <p>Raffle Time</p>
+    <ul>
+      <li>Go to the Raffle Page to use your Dubl-U-nes for prize entries.</li>
+      <li>The more entries you have, the more chances to win!</li>
+    </ul>
+  </>,
+  // Slide 5: Wrap-Up
+  <div className={s.wrapUpSlide}>
+    <p className={s.wrapUpTitle}>Wrap-Up</p>
+    <p className={s.wrapUpHighlight}>April 11th at 2 PM ET</p>
+    <p>Regardless of participation, join the event wrap-up to meet challenge partners, celebrate, and hear about the challenge results and raffle draw!</p>
+    <p className={s.wrapUpWelcome}>All are welcome!</p>
+  </div>,
+];
+
 const Home: React.FC<Props> = ({ addNotification }) => {
   const blockBtnRef = useRef<HTMLButtonElement>(null);
   const [viewed, setViewed] = useState(!!localStorage.getItem("block-instructions"));
+  const [step, setStep] = useState(0);
+  const [visitedSlides, setVisitedSlides] = useState<Set<number>>(new Set([0]));
 
   // Zoom and movement 
   const [scale, setScale] = useState(1);
   const [pos, setPos] = useState({ x: 0, y: 0 });
+
+  const allSlidesViewed = visitedSlides.size === instructionSlides.length;
+
+  const goToSlide = (index: number) => {
+    setStep(index);
+    setVisitedSlides((prev) => new Set(prev).add(index));
+  };
 
   return (
     <Layout>
@@ -34,11 +97,25 @@ const Home: React.FC<Props> = ({ addNotification }) => {
       >
         {!viewed ? (
           <div className={s.notViewed}>
-            <ul>
-              <li>Visit the learn and earn page to get more info about the challenges!</li>
-              <li>Visit the business island to see challenges (day 3–4 / hours 49–120)</li>
-              <li>Click on raffle page to use your dubl-u-nes</li>
-            </ul>
+            {instructionSlides[step]}
+
+            {/* Scroll markers */}
+            <div className={s.scrollMarkers}>
+              {instructionSlides.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  aria-label={`Go to slide ${index + 1}`}
+                  aria-current={step === index}
+                  className={[
+                    s.marker,
+                    step === index ? s.markerActive : "",
+                  ].join(" ")}
+                  onClick={() => goToSlide(index)}
+                />
+              ))}
+            </div>
+
             <div>
               <button
                 className={`${s.blockBtn} fade move`}
@@ -51,7 +128,11 @@ const Home: React.FC<Props> = ({ addNotification }) => {
               >
                 Don't show this again
               </button>
-              <button className="okBtn flip" onClick={() => setViewed(true)} />
+              <button
+                className="okBtn flip"
+                disabled={!allSlidesViewed}
+                onClick={() => setViewed(true)}
+              />
             </div>
           </div>
         ) : (
