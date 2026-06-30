@@ -121,11 +121,11 @@ const PasswordForm: React.FC<Props> = ({
     >
       {userToken && (
         <div role="presentation">
-          <label htmlFor="old_password">Current Pass</label>
+          <label htmlFor="old_password">Current Password</label>
           <Input
             id="old_password"
             name="old_password"
-            type="text"
+            type="password"
             onChange={(e) => updateField<PasswordFormData>(e, setCurrentData)}
             disabled={form.processing}
             autoComplete="off"
@@ -136,7 +136,7 @@ const PasswordForm: React.FC<Props> = ({
 
       <div role="presentation">
         <label aria-label="Password" htmlFor="password">
-          Pass
+          Password
         </label>
         <Input
           id="password"
@@ -154,7 +154,7 @@ const PasswordForm: React.FC<Props> = ({
 
       <div role="presentation">
         <label aria-label="Confirm Password" htmlFor="password_confirmation">
-          Confirm Pass
+          Confirm Password
         </label>
         <Input
           id="password_confirmation"

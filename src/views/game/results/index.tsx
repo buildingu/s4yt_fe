@@ -1,9 +1,11 @@
 import type { ChallengeWinner, PartnerMain, RaffleWinner, WinnersReduxState } from "@reducers/winners";
 
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { getWinners } from "@actions/winners";
+import { completePage } from "@actions/userProgress";
 
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
@@ -21,8 +23,14 @@ interface Props {
 }
 
 const Results: React.FC<Props> = ({ partners, getWinners }) => {
+  const dispatch = useDispatch();
+
   useLayoutEffect(() => {
     if (!(partners.main.length && partners.other.length)) getWinners();
+  }, []);
+
+  useEffect(() => {
+    dispatch(completePage("free_dublunes"));
   }, []);
 
   return (
@@ -79,11 +87,10 @@ const Results: React.FC<Props> = ({ partners, getWinners }) => {
                             ))}
                           </ul>
                         )}
-                        {!entry.winners.challenge?.length && !entry.winners.raffle?.length && ( 
+                        {!entry.winners.challenge?.length && !entry.winners.raffle?.length && (
                           <p>No Winners</p>
                         )}
                       </section>
-
                       {entry.winners.raffle?.length > 0 && (
                         <section
                           aria-label={`${entry.name}'s Raffle Winners`}
@@ -132,7 +139,7 @@ const Winner: React.FC<{ winner: RaffleWinner | ChallengeWinner }> = ({ winner }
         {winner.country}
       </p>
     </li>
-  )
+  );
 };
 
 const RaffleItem: React.FC<{

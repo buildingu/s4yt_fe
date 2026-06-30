@@ -1,7 +1,10 @@
 import type { UserReduxState } from "@reducers/user";
 import type UserCredentials from "@typings/UserCredentials";
 
+import { useEffect } from "react";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { completePage } from "@actions/userProgress";
 
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
@@ -18,6 +21,12 @@ interface Props {
 }
 
 const Profile: React.FC<Props> = ({ user }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(completePage("profile"));
+  }, []);
+
   return (
     <Layout style={{ maxWidth: "1200px" }}>
       <Header title="Profile" />

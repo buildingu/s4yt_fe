@@ -63,3 +63,9 @@
     font-size: 110px;
   }
 }
+
+.right .timer .discordLink {
+  display: block;
+  font-size: var(--heading-28);
+  margin-top: 1.5rem;
+}

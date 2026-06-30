@@ -46,7 +46,7 @@ const SupportModal: React.FC<Props> = ({ user }) => {
               Additionally, if you are a part of our discord community, we would
               be happy to provide help in our "SUPPORT" channel:
               <a
-                href="https://discord.com/invite/A3dpd9Ex"
+                href="https://discord.gg/G884wrDnPN"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fade move"

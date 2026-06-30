@@ -2,12 +2,14 @@ import type { UserReduxState } from "@reducers/user";
 import type { GameReduxState, QuizChestGrouping } from "@reducers/game";
 import type UserCredentials from "@typings/UserCredentials";
 
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { getLearnAndEarnChests } from "@actions/game";
 import { isNotPlayer } from "@actions/user";
+import { completePage } from "@actions/userProgress";
 
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
@@ -40,6 +42,8 @@ const LearnAndEarn: React.FC<PlayerProps> = ({
   getLearnAndEarnChests,
   isNotPlayer
 }) => {
+  const dispatch = useDispatch();
+
   const [selectedChest, setSelectedChest] = useState<{ id: string; quiz: QuizChestGrouping } | null>(null),
     [isAnyCompleted, setIsAnyCompleted] = useState(false);
 
@@ -50,7 +54,11 @@ const LearnAndEarn: React.FC<PlayerProps> = ({
   useLayoutEffect(() => {
     if (!chests.length) getLearnAndEarnChests();
   }, []);
-  
+
+  useEffect(() => {
+    dispatch(completePage("play_and_get"));
+  }, []);
+
   return (
     <Layout>
       <Header title="Learn and Earn" />

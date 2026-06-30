@@ -2,9 +2,11 @@ import type { GameReduxState } from "@reducers/game";
 
 import { useState, useEffect, useLayoutEffect } from "react";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { getRaffleItems, updateRaffleItem, updateRaffleStake, sendRaffleStakedItems } from "@actions/game";
 import { isNotPlayer } from "@actions/user";
+import { completePage } from "@actions/userProgress";
 
 import Layout from "@components/partials/layout";
 import Header from "@components/partials/header";
@@ -20,7 +22,7 @@ import s from "./styles.module.css";
 import { INITIALIZE_RAFFLE_STAKE } from "@root/redux/actions";
 
 interface Props {
-  coins: number; // Initial coins/coins that's actually stored on the server.
+  coins: number;
   raffleItems: GameReduxState["raffleItems"];
   staked: GameReduxState["staked"];
   raffleTimestamp?: GameReduxState["raffleTimestamp"];
@@ -28,10 +30,7 @@ interface Props {
   initializeStake: (coins: number) => void;
   getRaffleItems: () => Promise<any>;
   updateRaffleStake: (staked: GameReduxState["staked"]) => void;
-  updateRaffleItem: (
-    item_id: string,
-    update: { coins?: number; silver?: boolean }
-  ) => void;
+  updateRaffleItem: (item_id: string, update: { coins?: number; silver?: boolean }) => void;
   sendRaffleStakedItems: (
     stakedItems: GameReduxState["staked"]["raffleItem"],
     raffleItems: GameReduxState["raffleItems"],
@@ -51,12 +50,13 @@ const Raffle: React.FC<Props> = ({
   updateRaffleItem,
   sendRaffleStakedItems
 }) => {
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false),
     [cooldownElapsed, setCooldownElapsed] = useState(true);
 
   useLayoutEffect(() => {
     initializeStake(coins);
-
     if (
       !raffleItems.length ||
       (raffleTimestamp?.getRaffleItems && Date.now() >= raffleTimestamp.getRaffleItems)
@@ -70,8 +70,9 @@ const Raffle: React.FC<Props> = ({
 
   useEffect(() => {
     isNotPlayer(true, "Only players can assign Dubl-U-Nes to raffle items");
+    dispatch(completePage("raffle"));
   }, []);
-  
+
   const handleStake = (type: "inc" | "dec", item_id: string) => {
     updateRaffleStake({
       remainingCoins: type === "inc" ? 1 : -1,
@@ -87,31 +88,19 @@ const Raffle: React.FC<Props> = ({
   return (
     <Layout>
       <Header title="Raffle Page" />
-      <Content
-        addFeather="right2"
-        className={s.base}
-      >
+      <Content addFeather="right2" className={s.base}>
         <div className={s.container}>
           <div className={s.top}>
-            <h2>
-              Tokens for
-              <br /> Treasure
-            </h2>
-
+            <h2>Tokens for<br /> Treasure</h2>
             <div>
               <h4 className={s.coinsCount}>
-                Your Total
-                <br /> Dubl-u-nes: <span>{staked.remainingCoins}</span>
+                Your Total<br /> Dubl-u-nes: <span>{staked.remainingCoins}</span>
               </h4>
-
               <div className={s.legend}>
                 <h4>Legend</h4>
                 <div>
                   <img src="/images/coin-smallgolden.png" alt="golden coin" />
-                  <p>
-                    At least one player has assigned at least 1 dubl-u-ne to that
-                    item
-                  </p>
+                  <p>At least one player has assigned at least 1 dubl-u-ne to that item</p>
                 </div>
                 <div>
                   <img src="/images/coin-smallsilver.png" alt="silver coin" />
@@ -131,52 +120,36 @@ const Raffle: React.FC<Props> = ({
               >
                 {({ entry, i }) => (
                   <div key={i} aria-label={entry.name} className={s.item}>
-                    <RaffleItemModal
-                      className={s.imgContainer}
-                      item={entry}
-                    >
+                    <RaffleItemModal className={s.imgContainer} item={entry}>
                       <img className={s.main} src={entry.image_src} alt={entry.name} />
-
                       <img
                         className={s.sliverGold}
                         src={!entry.silver ? "/images/coin-smallgolden.png" : "/images/coin-smallsilver.png"}
                         alt="Coin"
                       />
-                      <img
-                        className={s.magnify}
-                        src="/images/magnifier.png"
-                        alt="Magnify"
-                      />
+                      <img className={s.magnify} src="/images/magnifier.png" alt="Magnify" />
                     </RaffleItemModal>
-                    
                     <h4 title={entry.name}>{entry.name}</h4>
-
                     <div className={s.controls}>
                       <button
                         className="fade move"
                         aria-label="Subtract"
                         disabled={!cooldownElapsed || !entry.coins || isNotPlayer()}
                         onClick={() => handleStake("inc", entry.item_id)}
-                      >
-                        -
-                      </button>
+                      >-</button>
                       <p aria-label={`${entry.coins} Stacked`}>{entry.coins}</p>
                       <button
                         className="fade move"
                         aria-label="Add"
                         disabled={!cooldownElapsed || !staked.remainingCoins || isNotPlayer()}
                         onClick={() => handleStake("dec", entry.item_id)}
-                      >
-                        +
-                      </button>
+                      >+</button>
                     </div>
                   </div>
                 )}
               </Carousel>
             ) : (
-              <p className={s.failed}>
-                Unexpectedly failed to retrieve raffle data.
-              </p>
+              <p className={s.failed}>Unexpectedly failed to retrieve raffle data.</p>
             )
           ) : (
             <Spinner
@@ -223,10 +196,8 @@ const mapDispatchToProps = (dispatch: any) => ({
   getRaffleItems: () => dispatch(getRaffleItems()),
   updateRaffleStake: (staked: GameReduxState["staked"]) =>
     dispatch(updateRaffleStake(staked)),
-  updateRaffleItem: (
-    item_id: string,
-    update: { coins?: number; silver?: boolean }
-  ) => dispatch(updateRaffleItem(item_id, update)),
+  updateRaffleItem: (item_id: string, update: { coins?: number; silver?: boolean }) =>
+    dispatch(updateRaffleItem(item_id, update)),
   sendRaffleStakedItems: (
     stakedItems: GameReduxState["staked"]["raffleItem"],
     raffleItems: GameReduxState["raffleItems"],

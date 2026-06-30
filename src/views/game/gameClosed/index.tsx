@@ -76,6 +76,14 @@ const GameClosed: React.FC<Props> = ({
                   00:00:00
                 </time>
                 to see the results
+                <a
+                  href="https://discord.gg/G884wrDnPN"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={s.discordLink}
+                >
+                  Join our Discord while you wait!
+                </a>
               </>
             ) : (
               <>
