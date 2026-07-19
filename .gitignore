@@ -25,3 +25,4 @@ yarn-error.log*
 *.old*
 MOCK_DATA*
 temporaryDb
+/.vite
